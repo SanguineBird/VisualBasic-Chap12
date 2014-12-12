@@ -16,12 +16,10 @@ Private Class Carpet
   Public Property StrStyle as String
   Public Property DecPrice as Decimal
   Dim rect as New Rectangle
-  Dim sngArea as Single
   Dim curTotal as Currency
   
   Sub handles btnCalculate
-    txtArea.Text = ""
-    txtCost.Text = ""
+    clearAll()
     
     'collect user input
     StrColor = txtColor.Text
@@ -44,14 +42,38 @@ Private Class Carpet
       rect.SngLength = 0
     End If
     
-    'calculate and display output
+    'calculate and display area
     rect.CalcArea()
     txtArea.Text = rect.SngArea.toString()
+    
+    'calculate and display total cost
+    curTotal = rect.SngArea * DecPricePer
     txtCost.Text = curTotal.toString("C")
   End Sub
   
   Sub handles btnClear
+    clearAll()
+  End Sub
+  
+  Sub handles btnExit
+    Me.Close()
+  End Sub
+  
+  Private Sub clearAll
+    StrColor = ""
+    StrStyle = ""
+    DecPricePer = 0
+    rect.SngWidth = 0
+    rect.SngLength = 0
+    curTotal = 0
     
+    txtColor.Text = ""
+    txtStyle.Text = ""
+    txtPricePer.Text = ""
+    txtWidth.Text = ""
+    txtLength.Text = ""
+    txtArea.Text = ""
+    txtCost.Text = ""
   End Sub
   
   Function IsValid (strInput as String) as Boolean
